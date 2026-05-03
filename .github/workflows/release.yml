@@ -1,0 +1,48 @@
+# Release workflow — placeholder until a hosting target is chosen.
+# Next steps: semantic versioning, GHCR/registry push, migrations, environment promotion.
+#
+# Trigger manually from the Actions tab when you are ready to exercise the pipeline skeleton.
+
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate (placeholder)
+        run: |
+          echo "Release validation placeholder — add smoke tests, SBOM, signing, etc."
+
+  build-backend-image:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image (no registry push)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: false
+          tags: collabsta-backend:rc-${{ github.run_number }}
+
+  release-candidate-message:
+    runs-on: ubuntu-latest
+    needs: build-backend-image
+    steps:
+      - name: Release candidate notice
+        run: |
+          echo "Release candidate ${{ github.run_number }} built locally in CI only."
+          echo "Production deployment is intentionally not wired yet."

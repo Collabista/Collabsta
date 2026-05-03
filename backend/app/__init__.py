@@ -1,0 +1,1 @@
+"""Collabsta API application package."""
