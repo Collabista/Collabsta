@@ -12,3 +12,6 @@ This repository contains a **backend** (FastAPI) and **frontend** (placeholder).
 ## Getting started
 
 See `backend/README.md` for setup, Make targets, Docker, and CI/security tooling. Copy `.env.example` to `.env` at the repo root and adjust values before running services locally.
+
+
+new thing
